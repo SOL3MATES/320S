@@ -63,9 +63,7 @@ html, body {
 
 /* Sneaker Visual */
 .hero-sneaker {
-  width: 100%;
-  text-align: center;
-  margin-top: 30px;
+  display: none;
 }
 .hero-sneaker img {
   width: 420px;
