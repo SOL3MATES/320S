@@ -55,6 +55,7 @@ form.addEventListener("submit", function (e) {
 
   formContainer.style.display = "none";
   game.style.display = "block";
+  game.style.visibility = "visible";
   startGame();
 });
 
