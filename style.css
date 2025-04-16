@@ -76,7 +76,7 @@ html, body {
 /* Game Background */
 #game {
   background: url('https://i.postimg.cc/xjPfkhMT/Screenshot-2025-03-27-at-12-26-18-PM.png') no-repeat center center;
-  background-size: cover;
+  background-size: cover; !important;
 }
 
 .overlay {
