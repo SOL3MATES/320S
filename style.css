@@ -1,3 +1,6 @@
+body {
+  padding-top: 20px;
+}
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Work+Sans:wght@400;600&display=swap');
 
 * {
@@ -28,24 +31,6 @@ body {
   height: 100vh;
   overflow: hidden;
   position: relative;
-}
-
-/* Logo only visible during gameplay */
-.logo-link {
-  display: none;
-}
-#game .logo-link.in-game {
-  display: block;
-  position: absolute;
-  top: 8px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 999;
-}
-.logo-link img.logo {
-  width: 140px;
-  height: auto;
-  display: block;
 }
 
 /* Form Layout */
@@ -172,21 +157,21 @@ body {
 
 /* Leaderboard */
 #leaderboard {
-  position: absolute;
-  top: 10px;
+  position: fixed;
+  top: 20px;           /* Aligns with score & timer */
   right: 10px;
-  font-size: 16px;
+  font-size: 14px;
   color: #fff;
   background: rgba(0,0,0,0.6);
-  padding: 10px;
+  padding: 10px 12px;
   border-radius: 8px;
-  z-index: 2;
+  z-index: 1000;
+  max-width: 160px;
 }
-
 /* Floating Instructions */
 #startInstructions {
   position: absolute;
-  top: 42px;
+  top: 50px; /* moved down by 8px */
   left: 10px;
   background: rgba(0, 0, 0, 0.75);
   color: white;
