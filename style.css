@@ -19,12 +19,6 @@ html, body {
   touch-action: none;
 }
 
-/* Game Area with 1080x1920 responsive scaling */
-body {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
 #game,
 #formContainer {
   width: 100vw;
