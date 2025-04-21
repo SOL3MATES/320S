@@ -243,3 +243,19 @@ body {
 #popup button:hover {
   background-color: #c0ac93;
 }
+
+@media (max-width: 600px) {
+  #score, #timer, #leaderboard {
+    font-size: 13px;
+    top: 60px;
+  }
+
+  .form-block input, .form-block button {
+    font-size: 15px;
+    padding: 12px;
+  }
+
+  #startInstructions {
+    top: 70px;
+  }
+}
