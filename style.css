@@ -16,12 +16,6 @@ html, body {
   touch-action: none;
 }
 
-/* Game Area with 1080x1920 responsive scaling */
-body {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
 #game,
 #formContainer {
   width: 100vw;
@@ -170,17 +164,16 @@ body {
   left: 120px;
 }
 
-/* Leaderboard */
 #leaderboard {
-  position: absolute;
-  top: 60px;
+  position: fixed;                /* Use fixed instead of absolute */
+  top: 80px;                      /* Push it down further */
   right: 10px;
   font-size: 16px;
   color: #fff;
-  background: rgba(0,0,0,0.6);
+  background: rgba(0, 0, 0, 0.6);
   padding: 10px;
   border-radius: 10px;
-  z-index: 2;
+  z-index: 1000;                  /* Ensure it's on top */
 }
 
 /* Floating Instructions */
