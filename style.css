@@ -186,7 +186,7 @@ body {
 /* Floating Instructions */
 #startInstructions {
   position: absolute;
-  top: 42px;
+  top: 50px;
   left: 10px;
   background: rgba(0, 0, 0, 0.75);
   color: white;
