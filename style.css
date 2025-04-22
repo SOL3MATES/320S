@@ -281,3 +281,18 @@ html, body {
     top: 70px;
   }
 }
+/* ─── Floating “+1 / ‑1 / X” feedback ─────────────────────────── */
+.catch-feedback {
+  position: absolute;
+  font-size: 24px;
+  font-weight: 700;
+  pointer-events: none;
+  z-index: 1000;
+  transform: translate(-50%, 0);      /* centre horizontally */
+  animation: floatFade 0.8s ease-out forwards;
+}
+
+@keyframes floatFade {
+  0%   { opacity: 1; transform: translate(-50%, 0); }
+  100% { opacity: 0; transform: translate(-50%, -40px); }
+}
