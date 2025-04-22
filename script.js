@@ -103,6 +103,19 @@ function showStartInstructions() {
   }, 7000);
 }
 
+function showCatchFeedback(x, y, type) {
+  const f = document.createElement("div");
+  f.className = "catch-feedback";
+  f.textContent = type === "good" ? "+1" : type === "bad" ? "-1" : "X";
+  f.style.color = type === "good" ? "#4caf50"
+                : type === "bad"  ? "#ff3b30"
+                : "#000";
+  f.style.left = `${x}px`;
+  f.style.top  = `${y}px`;
+  game.appendChild(f);
+  setTimeout(() => f.remove(), 800);      // clean‑up after animation
+}
+
 // Spawn falling items
 function spawnItem() {
   if (!gameRunning) return;
@@ -132,19 +145,23 @@ function spawnItem() {
       itemRect.left <= catcherRect.right
     );
 
-    if (isTouching) {
-      handleItemCatch(type);
-      item.remove();
-    } else if (top > window.innerHeight) {
-      item.remove();
-    } else {
-      requestAnimationFrame(fall);
-    }
-  }
+  function fall() {
 
-  fall();
-  setTimeout(spawnItem, spawnRate);
+  if (isTouching) {
+    const cx = itemRect.left + itemRect.width / 2;
+    const cy = itemRect.top  + itemRect.height / 2;
+    showCatchFeedback(cx, cy, type);
+    handleItemCatch(type);
+    item.remove();
+  } else if (top > window.innerHeight) {
+    item.remove();
+  } else {
+    requestAnimationFrame(fall);
+  }
 }
+
+fall();                      
+setTimeout(spawnItem, spawnRate);   
 
 // Catch item logic
 function handleItemCatch(type) {
