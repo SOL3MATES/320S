@@ -103,19 +103,6 @@ function showStartInstructions() {
   }, 7000);
 }
 
-function showCatchFeedback(x, y, type) {
-  const f = document.createElement("div");
-  f.className = "catch-feedback";
-  f.textContent = type === "good" ? "+1" : type === "bad" ? "-1" : "X";
-  f.style.color = type === "good" ? "#4caf50"
-                : type === "bad"  ? "#ff3b30"
-                : "#000";
-  f.style.left = `${x}px`;
-  f.style.top  = `${y}px`;
-  game.appendChild(f);
-  setTimeout(() => f.remove(), 800);      // clean‑up after animation
-}
-
 // Spawn falling items
 function spawnItem() {
   if (!gameRunning) return;
