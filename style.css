@@ -37,23 +37,6 @@ html, body {
   z-index: 10;                           /* keep above any images */
 }
 
-/* Logo only visible during gameplay */
-.logo-link {
-  display: none;
-}
-#game .logo-link.in-game {
-  display: block;
-  position: absolute;
-  top: 8px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 999;
-}
-.logo-link img.logo {
-  width: 140px;
-  height: auto;
-  display: block;
-}
 
 /* Form Layout */
 #formContainer {
