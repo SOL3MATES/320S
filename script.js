@@ -103,9 +103,24 @@ function showStartInstructions() {
   }, 7000);
 }
 
+function showCatchFeedback(x, y, type) {
+  const f = document.createElement("div");
+  f.className = "catch-feedback";
+  f.textContent = type === "good" ? "+1" : type === "bad" ? "-1" : "X";
+  f.style.color = type === "good" ? "#4caf50"
+                : type === "bad"  ? "#ff3b30"
+                : "#000";
+  f.style.left = `${x}px`;
+  f.style.top  = `${y}px`;
+  game.appendChild(f);
+  setTimeout(() => f.remove(), 800);      // clean‑up after animation
+}
+
 // Spawn falling items
 function spawnItem() {
   if (!gameRunning) return;
+
+  // Create a new falling element
   const item = document.createElement("div");
   const rand = Math.random();
   let type = rand < 0.7 ? "good" : rand < 0.9 ? "bad" : "deadly";
@@ -114,41 +129,45 @@ function spawnItem() {
   item.classList.add("item", type);
   item.dataset.type = type;
   item.style.left = `${Math.random() * (game.offsetWidth - 100)}px`;
-  item.style.top = "0px";
+  item.style.top  = "0px";
   game.appendChild(item);
 
+  // Inner loop to make the element fall
   function fall() {
-    if (!gameRunning) return item.remove();
-    let top = parseFloat(item.style.top || 0);
-    item.style.top = `${top + itemFallSpeed}px`;
+    if (!gameRunning) { item.remove(); return; }
 
-    const itemRect = item.getBoundingClientRect();
+    // update position
+    const top = parseFloat(item.style.top || 0) + itemFallSpeed;
+    item.style.top = `${top}px`;
+
+    // collision check
+    const itemRect    = item.getBoundingClientRect();
     const catcherRect = catcher.getBoundingClientRect();
 
-    const isTouching = (
-      itemRect.bottom >= catcherRect.top &&
-      itemRect.top <= catcherRect.bottom &&
-      itemRect.right >= catcherRect.left &&
-      itemRect.left <= catcherRect.right
-    );
+    const isTouching =
+      itemRect.bottom >= catcherRect.top   &&
+      itemRect.top    <= catcherRect.bottom &&
+      itemRect.right  >= catcherRect.left  &&
+      itemRect.left   <= catcherRect.right;
 
-  function fall() {
+    if (isTouching) {
+      // centre of caught item → feedback
+      const cx = itemRect.left + itemRect.width  / 2;
+      const cy = itemRect.top  + itemRect.height / 2;
+      showCatchFeedback(cx, cy, type);      // floating “+1 / -1 / X”
 
-  if (isTouching) {
-    const cx = itemRect.left + itemRect.width / 2;
-    const cy = itemRect.top  + itemRect.height / 2;
-    showCatchFeedback(cx, cy, type);
-    handleItemCatch(type);
-    item.remove();
-  } else if (top > window.innerHeight) {
-    item.remove();
-  } else {
-    requestAnimationFrame(fall);
+      handleItemCatch(type);                // scoring logic
+      item.remove();
+    } else if (top > window.innerHeight) {
+      item.remove();                        // fell off‑screen
+    } else {
+      requestAnimationFrame(fall);          // keep falling
+    }
   }
-}
 
-fall();                      
-setTimeout(spawnItem, spawnRate);   
+  fall();                                   // kick‑off the fall loop
+  setTimeout(spawnItem, spawnRate);         // schedule next item
+}
 
 // Catch item logic
 function handleItemCatch(type) {
